@@ -8,6 +8,8 @@ npm link
 
 npm install mind -g
 
+npm install commander -g
+
 Comandos
 
 
