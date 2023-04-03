@@ -5,7 +5,9 @@ Instalação
 Para realizar a instalação, execute os comandos abaixo:
 
 npm link
+
 npm install mind -g
+
 Comandos
 
 
