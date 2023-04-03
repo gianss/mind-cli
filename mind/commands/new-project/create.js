@@ -1,20 +1,20 @@
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const { execSync } = require('child_process')
+const fs = require('fs')
+const path = require('path')
 
 
 module.exports = (name) => {
 
   if (!fs.existsSync(name)) {
-    fs.mkdirSync(name, { recursive: true });
-    console.log(`✅ Created directory: ${name}`);
+    fs.mkdirSync(name, { recursive: true })
+    console.log(`✅ Created directory: ${name}`)
   } else {
-    console.log(`The directory already exists`);
-    process.exit(1);
+    console.log(`The directory already exists`)
+    process.exit(1)
   }
 
-  process.chdir(name);
+  process.chdir(name)
 
   const packageJson = {
     "name": name,
@@ -84,23 +84,23 @@ module.exports = (name) => {
   }
 
   const createFolders = (dir) => {
-    fs.mkdirSync(dir, { recursive: true });
-    console.log(`✅ Created ${dir}`);
-  };
+    fs.mkdirSync(dir, { recursive: true })
+    console.log(`✅ Created ${dir}`)
+  }
 
   const createFiles = (dir, fileName, content = '') => {
-    fs.writeFileSync(path.join(dir, fileName), content);
-    console.log(`✅ Created ${path.join(dir, fileName)}`);
-  };
+    fs.writeFileSync(path.join(dir, fileName), content)
+    console.log(`✅ Created ${path.join(dir, fileName)}`)
+  }
 
   if (!fs.existsSync('package.json')) {
     if (fs.existsSync('src')) {
-      execSync('rm -r src');
+      execSync('rm -r src')
     }
-    createFiles('.', 'package.json', JSON.stringify(packageJson, null, 2));
+    createFiles('.', 'package.json', JSON.stringify(packageJson, null, 2))
   } else {
     console.log('Projeto já iniciado, se deseja recria-lo do zero. Apague o package.json e rode novamente o commando. Isso irá apagar todas as alterações feitas')
-    process.exit(1);
+    process.exit(1)
   }
 
 
@@ -118,7 +118,7 @@ module.exports = (name) => {
       "node_modules"
     ]
   }
-  createFiles('.', 'config.json', JSON.stringify(tsConfig, null, 2));
+  createFiles('.', 'tsconfig.json', JSON.stringify(tsConfig, null, 2))
 
   const tsConfigProd = {
     "compilerOptions": {
@@ -135,7 +135,7 @@ module.exports = (name) => {
       "src/**/*.spec.ts"
     ]
   }
-  createFiles('.', 'config.prod.json', JSON.stringify(tsConfigProd, null, 2));
+  createFiles('.', 'tsconfig.prod.json', JSON.stringify(tsConfigProd, null, 2))
 
 
   const husky = {
@@ -143,7 +143,7 @@ module.exports = (name) => {
       "pre-commit": "lint-staged"
     }
   }
-  createFiles('.', '.huskyrc.json', JSON.stringify(husky, null, 2));
+  createFiles('.', '.huskyrc.json', JSON.stringify(husky, null, 2))
 
   const esLint = {
     "extends": "standard-with-typescript",
@@ -161,7 +161,7 @@ module.exports = (name) => {
       "@typescript-eslint/space-before-function-paren": "off"
     }
   }
-  createFiles('.', '.eslintrc.json', JSON.stringify(esLint, null, 2));
+  createFiles('.', '.eslintrc.json', JSON.stringify(esLint, null, 2))
 
 
   const lintStaged = {
@@ -171,11 +171,11 @@ module.exports = (name) => {
       "git add"
     ]
   }
-  createFiles('.', '.lintstagedrc.json', JSON.stringify(lintStaged, null, 2));
+  createFiles('.', '.lintstagedrc.json', JSON.stringify(lintStaged, null, 2))
 
   const esLintIgnore = `node_modules
 dist`
-  createFiles('.', '.eslintignore', esLintIgnore);
+  createFiles('.', '.eslintignore', esLintIgnore)
 
   const nodemon = {
     "verbose": true,
@@ -184,35 +184,35 @@ dist`
     "ignore": ["src/**/*.spec.ts"],
     "exec": "ts-node src/index.ts"
   }
-  createFiles('.', 'nodemon.json', JSON.stringify(nodemon, null, 2));
+  createFiles('.', 'nodemon.json', JSON.stringify(nodemon, null, 2))
 
-  const jestFull = `const config = require('./jest.config')\n
-config.testMatch = ['**/*.*.ts']\n
+  const jestFull = `const config = require('./jest.config')
+config.testMatch = ['**/*.*.ts']
+module.exports = config`
+  createFiles('.', 'jest-full-config.js', jestFull)
+
+  const jestIntegration = `const config = require('./jest.config')
+config.testMatch = ['**/*.test.ts']
+module.exports = config`
+  createFiles('.', 'jest-integration-config.ts', jestIntegration)
+
+  const jestUnit = `const config = require('./jest.config')
+config.testMatch = ['**/*.spec.ts']
 module.exports = config\n`
-  createFiles('.', 'jest-full-config.js', jestFull);
+  createFiles('.', 'jest-full-config.js', jestUnit)
 
-  const jestIntegration = `const config = require('./jest.config')\n
-config.testMatch = ['**/*.test.ts']\n
-module.exports = config\n`
-  createFiles('.', 'jest-integration-config.ts', jestIntegration);
-
-  const jestUnit = `const config = require('./jest.config')\n
-config.testMatch = ['**/*.spec.ts']\n
-module.exports = config\n`
-  createFiles('.', 'jest-full-config.js', jestUnit);
-
-  const jest = `module.exports = {\n
-    collectCoverageFrom: [\n
-      '<rootDir>/src/**/*.ts'\n
+  const jest = `module.exports = {
+    collectCoverageFrom: [
+      '<rootDir>/src/**/*.ts'
     ],\n
-    coverageDirectory: 'coverage',\n
-    coverageProvider: 'babel',\n
-    testEnvironment: 'node',\n
-    transform: {\n
-      '.+\\.ts$': 'ts-jest'\n
-    }\n
-  }\n`
-  createFiles('.', 'jest.config.js', jest);
+    coverageDirectory: 'coverage',
+    coverageProvider: 'babel',
+    testEnvironment: 'node',
+    transform: {
+      '.+\\.ts$': 'ts-jest'
+    }
+  }`
+  createFiles('.', 'jest.config.js', jest)
 
   const folderStructure = [
     'src/db',
@@ -222,85 +222,84 @@ module.exports = config\n`
     'src/routes/users',
     'src/utils',
     'src/helpers'
-  ];
+  ]
 
 
   // Cria a estrutura de pastas
   folderStructure.forEach((folder) => {
-    createFolders(folder);
-  });
+    createFolders(folder)
+  })
 
   // Cria o arquivo 'src/index.ts'
   const indexContent = `
-  import express from 'express';
-  const app = express();
-  import routes from './routes';
-  
-  // Adiciona as rotas ao aplicativo
-  routes(app);
-  
-  // Inicia o servidor
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(\`🚀 Server running on port \${port}\`);
-  });
-  `;
+import express from 'express'
+import routes from './routes'
+import cors from 'cors'
+const app = express()
 
-  createFiles('src', 'index.ts', indexContent);
+app.use(express.json())
+app.use(cors)
+app.use(routes)
+
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+ console.log(\`🚀 Server running on port \${port}\`)
+})
+
+export default app
+`
+
+  createFiles('src', 'index.ts', indexContent)
 
   // Cria o arquivo 'src/routes/index.ts'
-  const routesIndexContent = `
-  import fs from 'fs'
-  import path from 'path'
-  
-  module.exports = (app) => {
-    const routesDir = path.join(__dirname, '.');
-    // Importa automaticamente todos os arquivos de rota da pasta 'routes'
-    fs.readdirSync(routesDir).forEach((file) => {
-      const fileName = file.split('.')[0]; // Remove a extensão do arquivo
-      const [routeName, spec] = fileName.split('/'); // Separa o nome da rota do diretório
-      if (spec === 'spec') return; // Ignora os arquivos de teste
-      const route = require(path.join(routesDir, file));
-      app.use(\`/\${routeName}\`, route);
-    });
-  };
-  `;
-  createFiles('src/routes', 'index.ts', routesIndexContent);
+  const routesIndexContent = `import fs from 'fs'
+import { Router } from 'express'
+const routes = Router()
+fs.readdirSync('./src/routes').forEach(async (file) => {
+  const fileName = file.split('.')[0] // Remove a extensão do arquivo
+  const [routeName, spec] = fileName.split('/')
+  if (fileName === 'index') return // Separa o nome da rotaz do diretório
+  if (spec === 'spec') return
+  const route = await import(\`./\${file}/\${fileName}\`)
+  routes.use(\`/\${routeName}\`, route.default)
+})
+export default routes
+`
+  createFiles('src/routes', 'index.ts', routesIndexContent)
 
 
   // Cria o arquivo de rota 'src/routes/user.js'
-  const userRouteContent = `
-  import {Router} from 'express'
-  const router = Router();
+  const userRouteContent = `import { Router } from 'express'
+const router = Router()
+
+router.get('/', (req, res) => {
+  res.send('GET /user')
+})
   
-  // Define as rotas para o recurso 'user'
-  router.get('/', (req, res) => {
-    res.send('GET /user');
-  });
-  
-  module.exports = router;
-  `;
-  createFiles('src/routes/users', 'user.ts', userRouteContent);
+export default router
+`
+  createFiles('src/routes/users', 'users.ts', userRouteContent)
 
 
   // Cria o arquivo de rota 'src/routes/user.spec.ts'
   const userRouteSpecContent = `
-  import request from 'supertest'
-  import app from '../../app'
-  import userRouter from './user'
+import request from 'supertest'
+import app from '../../index'
+import userRouter from './users'
   
-  describe('User routes', () => {
-    describe('GET /', () => {
-      it('should respond with status code 200', async () => {
-        const res = await request(app.use(userRouter)).get('/')
-  
-        expect(res.statusCode).toBe(200)
-      })
+describe('User routes', () => {
+  describe('GET /', () => {
+    it('should respond with status code 200', async () => {
+      const res = await request(app.use(userRouter)).get('/')
+      expect(res.statusCode).toBe(200)
     })
-  })`;
-  createFiles('src/routes/users', 'user.spec.ts', userRouteSpecContent);
+  })
+})
+`
+  createFiles('src/routes/users', 'users.spec.ts', userRouteSpecContent)
 
   console.log('Instalando dependências... Aguarde')
-  execSync('npm install');
+  execSync('npm install')
+  execSync('npm update')
 
 }
