@@ -10,7 +10,6 @@ npm install mind -g
 
 npm install commander -g
 
-Comandos
 
 
 Para utilizar os comandos do CLI, execute os comandos abaixo:
