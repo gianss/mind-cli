@@ -3,7 +3,6 @@ const path = require('path')
 
 module.exports = (name, withConstructor) => {
     name = name.toLowerCase()
-    metodo = metodo.toLowerCase()
     const nameAlterado = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
     const interfaceCode = `export class ${nameAlterado}ServiceDB {\n${withConstructor ? `\n  constructor() {\n\n  }\n\n` : ''}}`
     const dir = path.join(process.cwd(), 'src', 'db', name)

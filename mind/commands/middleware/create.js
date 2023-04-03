@@ -1,11 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 
-module.exports = (name, withConstructor) => {
+module.exports = (name) => {
     name = name.toLowerCase()
-    metodo = metodo.toLowerCase()
     const nameAlterado = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-    const interfaceCode = `export class ${nameAlterado}MIddleware {\n${withConstructor ? `\n  constructor() {\n\n  }\n\n` : ''}}`
+    const interfaceCode = `export class ${nameAlterado}Middleware {}`
     const dir = path.join(process.cwd(), 'src', 'middleware', name)
     const fileName = `${name}-middleware.ts`
 

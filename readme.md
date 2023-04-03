@@ -1,15 +1,26 @@
-O Mind Framework é um CLI para criar arquivos de diferentes tipos a partir de comandos específicos. Você pode usar o Mind para criar classes, middlewares, rotas, controladores e projetos novos. Abaixo estão listados os comandos disponíveis:
+Mind Framework
+O Mind Framework é uma ferramenta de linha de comando (CLI) que permite criar arquivos de diferentes tipos por meio de comandos específicos. Com o Mind, é possível criar classes, middlewares, rotas, controladores e projetos novos. Abaixo estão os comandos disponíveis:
 
-make:class <name>: Cria uma nova classe com o nome especificado. Use a opção -c ou --constructor para adicionar um construtor à classe.
+Instalação
+Para realizar a instalação, execute os comandos abaixo:
 
-make:middleware <name>: Cria um novo middleware com o nome especificado.
+npm link
+npm install mind -g
+Comandos
 
-make:db <name>: Cria uma nova classe de banco de dados com o nome especificado. Use a opção -c ou --constructor para adicionar um construtor à classe.
 
-make:router <name>: Cria um novo arquivo de rotas com o nome especificado.
+Para utilizar os comandos do CLI, execute os comandos abaixo:
 
-make:controller <name> <method>: Cria um novo controlador com o nome especificado e um método especificado. Use a opção -c ou --constructor para adicionar um construtor à classe.
+mind make:class <name>: cria uma nova classe com o nome especificado. Para adicionar um construtor à classe, utilize a opção -c ou --constructor.
 
-new <name>: Cria um novo projeto com o nome especificado.
+mind make:middleware <name>: cria um novo middleware com o nome especificado.
 
-Você pode executar cada comando digitando mind <comando>. Por exemplo, para criar uma nova classe chamada MyClass, digite mind make:class MyClass.
+mind make:db <name>: cria uma nova classe de banco de dados com o nome especificado. Para adicionar um construtor à classe, utilize a opção -c ou --constructor.
+
+mind make:router <name>: cria um novo arquivo de rotas com o nome especificado.
+
+mind  make:controller <name> <method>: cria um novo controlador com o nome e o método especificados. Para adicionar um construtor à classe, utilize a opção -c ou --constructor.
+
+mind  new <name>: cria um novo projeto com o nome especificado.
+
+Para executar um comando, basta digitar o comando desejado. Por exemplo, para criar uma nova classe chamada MyClass, digite "mind make:class MyClass".
