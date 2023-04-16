@@ -2,6 +2,12 @@
 
 O Mind Framework é uma ferramenta de linha de comando (CLI) que permite criar arquivos de diferentes tipos por meio de comandos específicos. Com o Mind, é possível criar classes, middlewares, rotas, controladores e projetos novos. Abaixo estão os comandos disponíveis:
 
+
+## Instalação
+
+```console
+$ npm i mindhouse-cli -g
+
 ## Comandos
 
 Para utilizar os comandos do CLI, execute os comandos abaixo:
