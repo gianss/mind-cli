@@ -5,8 +5,7 @@ O Mind Framework é uma ferramenta de linha de comando (CLI) que permite criar a
 
 ## Instalação
 
-```console
-$ npm i mindhouse-cli -g
+npm i mindhouse-cli -g
 
 ## Comandos
 
