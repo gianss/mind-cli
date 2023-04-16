@@ -5,7 +5,7 @@ module.exports = (name, withConstructor) => {
     name = name.toLowerCase()
     const nameAlterado = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
     const interfaceCode = `export class ${nameAlterado}ServiceDB {\n${withConstructor ? `\n  constructor() {\n\n  }\n\n` : ''}}`
-    const dir = path.join(process.cwd(), 'src', 'db', name)
+    const dir = path.join(process.cwd(), 'src', 'db')
     const fileName = `${name}-service-db.ts`
 
     if (!fs.existsSync(dir)) {

@@ -1,15 +1,19 @@
 {
-  "name": "mind-framework",
-  "version": "1.0.0",
+  "name": "mind-cli",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm link"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bin": {
     "mind": "mind/index.js"
+  },
+  "dependencies": {
+    "commander": "^10.0.1"
   }
 }

@@ -4,20 +4,21 @@ const path = require('path')
 module.exports = (name) => {
     name = name.toLowerCase()
     const nameAlterado = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-    const interfaceCode = `export class ${nameAlterado}Middleware {}`
-    const dir = path.join(process.cwd(), 'src', 'middleware')
-    const fileName = `${name}-middleware.ts`
+    const interfaceCode = `export interface ${nameAlterado}Interface {}`
+    const dir = path.join(process.cwd(), 'src', 'interfaces')
+
 
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true })
         console.log(`✅ Created directory: ${dir}`)
     }
 
-    if (!fs.existsSync(path.join(dir, fileName))) {
-        fs.writeFileSync(path.join(dir, fileName), interfaceCode)
-        console.log(`✅ Created file: ${path.join(dir, fileName)}`)
+    const fileName = `${name}.ts`
+    const filePath = path.join(dir, fileName)
+    if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, interfaceCode)
+        console.log(`✅ Created file: ${filePath}`)
     } else {
         console.log('O arquivo já existe')
     }
-
 }

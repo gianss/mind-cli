@@ -4,12 +4,12 @@
 const { program } = require('commander')
 
 program
-    .command('make:class <name>')
-    .option('-c, --constructor')
+    .command('make:class <caminho> <name>')
+    .option('-c, --constructor', 'Include constructor method', false)
     .description('Create a new class')
-    .action((name, options) => {
+    .action((caminho, name, options) => {
         const createClass = require('./commands/class/create')
-        createClass(name, options.constructor)
+        createClass(name, caminho, options.constructor)
     })
 
 program
@@ -23,8 +23,7 @@ program
 
 program
     .command('make:db <name>')
-    .option('-c, --constructor')
-    .description('Create a new class')
+    .option('-c, --constructor', 'Include constructor method', false)
     .action((name, options) => {
         const createClass = require('./commands/db/create')
         createClass(name, options.constructor)
@@ -32,9 +31,16 @@ program
 
 program
     .command('make:router <name>')
-    .description('Create a new class')
+    .option('-c, --constructor', 'Include constructor method', false)
     .action((name, options) => {
         const createClass = require('./commands/routes/create')
+        createClass(name, options.constructor)
+    })
+
+program
+    .command('make:interface <name>')
+    .action((name, options) => {
+        const createClass = require('./commands/interface/create')
         createClass(name, options.constructor)
     })
 
