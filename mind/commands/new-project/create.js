@@ -120,6 +120,14 @@ module.exports = (name) => {
   }
   createFiles('.', 'tsconfig.json', JSON.stringify(tsConfig, null, 2))
 
+  const mindJson = {
+    "name": name,
+    "version": "1.0.0",
+    "description": ""
+  }
+
+  createFiles('.', 'mind.json', JSON.stringify(mindJson, null, 2))
+
   const tsConfigProd = {
     "compilerOptions": {
       "module": "commonjs",
