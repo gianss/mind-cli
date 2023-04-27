@@ -2,6 +2,11 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = (name) => {
+    const configFile = path.join(process.cwd(), 'mind.json')
+    if (!fs.existsSync(configFile)) {
+        console.log(`Arquivo de configuração não encontrado`)
+        return
+    }
     name = name.toLowerCase()
     const interfaceCode = `import {Router} from 'express'
 const router = Router()

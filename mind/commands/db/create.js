@@ -2,7 +2,8 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = (name, withConstructor) => {
-    if (!path.join(process.cwd(), 'mind.json')) {
+    const configFile = path.join(process.cwd(), 'mind.json')
+    if (!fs.existsSync(configFile)) {
         console.log(`Arquivo de configuração não encontrado`)
         return
     }
